@@ -4,7 +4,7 @@ import './Post.css';
 
 const post = (props) => (
     <article className="Post">
-        <h1>Title</h1>
+        <h1>{props.title}</h1>
         <div className="Info">
             <div className="Author">Author</div>
         </div>
@@ -12,3 +12,8 @@ const post = (props) => (
 );
 
 export default post;
+
+// body: "quia et suscipit↵suscipit recusandae consequuntur expedita et cum↵reprehenderit molestiae ut ut quas totam↵nostrum rerum est autem sunt rem eveniet architecto"
+// id: 1
+// title: "sunt aut facere repellat provident occaecati excepturi optio reprehenderit"
+// userId: 1

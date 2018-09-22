@@ -3,16 +3,32 @@ import React, { Component } from 'react';
 import Post from '../../components/Post/Post';
 import FullPost from '../../components/FullPost/FullPost';
 import NewPost from '../../components/NewPost/NewPost';
+import axios from 'axios';
 import './Blog.css';
 
 class Blog extends Component {
-    render () {
+    state = {
+        posts: []
+    };
+
+    componentDidMount() {
+        axios.get('https://jsonplaceholder.typicode.com/posts')
+            .then(response => {
+                this.setState({ posts: response.data });
+            });
+    }
+
+    render() {
+        console.log(this.state.posts)
         return (
             <div>
                 <section className="Posts">
-                    <Post />
-                    <Post />
-                    <Post />
+                    {
+                        this.state.posts
+                            .map(post => <Post
+                                key={post.id}
+                                title={post.title}/>)
+                    }
                 </section>
                 <section>
                     <FullPost />
