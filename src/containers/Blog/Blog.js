@@ -21,7 +21,6 @@ class Blog extends Component {
     }
 
     render() {
-        console.log(this.state.posts)
         return (
             <div>
                 <section className="Posts">
