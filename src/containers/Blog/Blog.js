@@ -9,7 +9,8 @@ import './Blog.css';
 class Blog extends Component {
     state = {
         posts: [],
-        selectedPostID: null
+        selectedPostID: null,
+        error: false
     };
 
     componentDidMount() {
@@ -18,6 +19,9 @@ class Blog extends Component {
                 const posts = response.data.slice(0, 4);
                 const updatedPosts = posts.map(post => ({...post, author: 'Ben'}));
                 this.setState({ posts: updatedPosts });
+            })
+            .catch(error => {
+                this.setState({error: true});
             });
     }
 
@@ -26,16 +30,19 @@ class Blog extends Component {
     }
 
     render() {
+
         return (
             <div>
                 <section className="Posts">
                     {
-                        this.state.posts
-                            .map(post => <Post
-                                key={post.id}
-                                clicked={() => { this.postSelectedHandler(post.id) }}
-                                author={post.author}
-                                title={post.title}/>)
+                        !this.state.error
+                            ? this.state.posts
+                                .map(post => <Post
+                                    key={post.id}
+                                    clicked={() => { this.postSelectedHandler(post.id) }}
+                                    author={post.author}
+                                    title={post.title} />)
+                            : <p style={{textAlign: 'center'}}>Somthing went worng!</p>
                     }
                 </section>
                 <section>
