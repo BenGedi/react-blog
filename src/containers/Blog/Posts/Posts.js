@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Post from '../../../components/Post/Post';
-// import { Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import axios from '../../../axios';
+import Post from '../../../components/Post/Post';
+import FullPost from '../FullPost/FullPost';
 
 import './Posts.css';
 
@@ -15,8 +16,8 @@ class Posts extends Component {
     postSelectedHandler = (id) => {
         // this.setState({selectedPostID: id});
         // this is mostly used after some operatrtion finished
-        // this.props.history.push({ pathname: '/' + id });
-        this.props.history.push('/' + id);
+        // this.props.history.push({ pathname: '/posts/' + id });
+        this.props.history.push('/posts/' + id);
     }
 
 
@@ -35,23 +36,26 @@ class Posts extends Component {
 
     render() {
         return (
-            <section className="Posts">
-                {
-                    !this.state.error
-                        ? this.state.posts
-                            .map(post => (
-                                // <Link to={'/' + post.id} key={post.id}>
-                                <Post
-                                    key={post.id}
-                                    clicked={() => { this.postSelectedHandler(post.id) }}
-                                    author={post.author}
-                                    title={post.title} />
-                                // </Link>
+            <div>
+                <section className="Posts">
+                    {
+                        !this.state.error
+                            ? this.state.posts
+                                .map(post => (
+                                    // <Link to={'/posts' + post.id} key={post.id}>
+                                    <Post
+                                        key={post.id}
+                                        clicked={() => { this.postSelectedHandler(post.id) }}
+                                        author={post.author}
+                                        title={post.title} />
+                                    // </Link>
+                                    )
                                 )
-                            )
-                        : <p style={{ textAlign: 'center' }}>Somthing went worng!</p>
-                }
-            </section>
+                            : <p style={{ textAlign: 'center' }}>Somthing went worng!</p>
+                    }
+                </section>
+                <Route path={this.props.match.url + '/:id'} exact component={FullPost} />
+            </div>
         );
     }
 }
