@@ -40,10 +40,10 @@ class Posts extends Component {
                                 clicked={() => { this.postSelectedHandler(post.id) }}
                                 author={post.author}
                                 title={post.title} />)
-                        : <p style={{textAlign: 'center'}}>Somthing went worng!</p>
+                        : <p style={{ textAlign: 'center' }}>Somthing went worng!</p>
                 }
             </section>
-        )
+        );
     }
 }
 
